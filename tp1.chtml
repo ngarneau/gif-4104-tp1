@@ -1,0 +1,25 @@
+<h2>&Eacute;nonc&eacute; du TP #1</h2>
+<p>
+<span style="font-size: 9pt">Pour ce premier TP, en utilisant </span><a style="font-size: 9pt" href="http://en.wikipedia.org/wiki/Eratosthenes_Sieve">l'algorithme de la passoire d'&Eacute;ratosth&egrave;ne</a><span style="font-size: 9pt">, on vous demande d'&eacute;crire un programme parall&egrave;le pour trouver tous les nombres premiers inf&eacute;rieurs &agrave; un certain seuil sp&eacute;cifi&eacute; sur la ligne de commande.</span>
+</p>
+<p>
+&Agrave; cette fin, nous vous fournissons une version s&eacute;quentielle <u> non optimis&eacute;e</u> de cet algorithme. Vous trouverez le code source de cette implantation dans le d&eacute;p&ocirc;t mercurial du cours, dans le dossier nomm&eacute; &laquo;<em>TP1</em>&raquo;.&nbsp;L'adresse du d&eacute;p&ocirc;t est <strong>https://hg@bitbucket.org/parizeau/gif-4104</strong> (fournissez cette adresse &agrave; la commande &laquo;<em>hg clone</em>&raquo;).
+</p>
+<p>
+Il s'agit essentiellement d'un programme &eacute;crit en <em>C</em>, mais qui utilise une classe <em>C++</em> nomm&eacute;e <strong>Chrono</strong>, afin de mesurer ais&eacute;ment (et avec pr&eacute;cision) le temps d'ex&eacute;cution de l'algorithme. Vous trouverez dans le m&ecirc;me dossier, un fichier nomm&eacute; CMakeLists.txt qui permet d'engendrer un <em>makefile</em> &agrave; l'aide de <a href="http://www.cmake.org/">l'outil CMAKE</a>. Pour construire un ex&eacute;cutable &agrave; partir du programme fourni, il vous suffit d'ex&eacute;cuter les commandes suivantes dans le dossier TP1:
+</p>
+<blockquote style="margin: 0px 0px 0px 40px; border: none; padding: 0px">
+	<span style="font-size: 10px; font-family: Verdana, Arial, Helvetica, sans-serif"><strong>&gt; cmake .</strong><br />
+	</span><span style="font-size: 10px; font-family: Verdana, Arial, Helvetica, sans-serif"><strong>&gt; make</strong></span><span style="font-size: 10px; font-family: Verdana, Arial, Helvetica, sans-serif"></span>
+</blockquote>
+<p>
+Tout comme le programme fourni, votre programme parall&egrave;le doit accepter sur la ligne de commande un nombre repr&eacute;sentant la limite sup&eacute;rieure d&eacute;sir&eacute;e pour la recherche de nombres premiers. Votre programme doit cependant accepter un deuxi&egrave;me argument sp&eacute;cifiant le nombre de fils d'ex&eacute;cution d&eacute;sir&eacute;. Votre implantation doit obligatoirement faire appel &agrave; la librairie <em><strong>pthread</strong></em> (i.e. vous ne pouvez pas utiliser les threads <em>C++</em>).
+</p>
+<p>
+Tout comme le programme fourni, votre programme parall&egrave;le doit afficher &agrave; la console les nombres premiers trouv&eacute;s et afficher dans le <em>stderr</em> le temps d'ex&eacute;cution du programme. Prenez garde &agrave; ne mesurer que le temps de recherche des nombres premiers, en excluant le temps requis pour leur affichage &agrave; la console (ou dans un fichier si celle-ci est redirig&eacute;e vers un fichier).
+</p>
+<p>
+Avant la date limite de remise, vous devez d&eacute;poser sur <em>Pixel</em> un fichier d'archive, soit dans le format <strong>tar.gz</strong>, soit dans le format <strong>zip</strong>, contenant vos fichiers de code source ainsi qu'un <em>makefile</em> ad&eacute;quat pour que nous puissions construire ais&eacute;ment votre ex&eacute;cutable en ex&eacute;cutant la commande &laquo;<em>make</em>&raquo;. La compilation et l'&eacute;dition des liens doivent alors s'effectuer sans aucun message d'erreur sur Colosse.
+</p>
+<p>
+Vous devez aussi ajouter &agrave; votre fichier d'archive un rapport sous la forme d'un document <strong>pdf</strong>. Ce rapport doit d&eacute;crire votre programme ainsi que vos r&eacute;sultats de speedup pour un nombre de fils d'ex&eacute;cution variant entre 1 et 8 (le nombre max de coeurs dans un noeud de Colosse). Votre rapport devrait contenir les informations su
