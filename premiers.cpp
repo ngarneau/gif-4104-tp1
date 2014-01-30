@@ -55,7 +55,6 @@ void* eratosthenesParBlock(void* iArg)
 {
     // each slices covers ["from" ... "to"], incl. "from" and "to"
     while(gP <= lMax) {
-        printf("Starting thread..\n");
         unsigned long to = gP + sliceSize;
         if (to > lMax) {
             to = lMax;
