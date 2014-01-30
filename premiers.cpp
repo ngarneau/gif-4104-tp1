@@ -4,6 +4,9 @@
 #include <math.h>
 #include "Chrono.hpp"
 
+unsigned long lMax = 1000;
+char *lFlags;
+
 // Programme qui trouve à l'aide de la passoire d'Ératosthène,
 // tous les nombres premiers inférieurs à un certain seuil 
 // spécifié sur la ligne de commande.
@@ -12,7 +15,6 @@ int main(int argc, char *argv[])
 {
     // Déterminer la limite supérieure pour la recherche;
     // par défaut, prendre 1000
-    unsigned long lMax = 1000;
     if (argc >= 2) {
         lMax = atol(argv[1]);
     }
@@ -21,20 +23,22 @@ int main(int argc, char *argv[])
     Chrono lChrono(true);
  
     // Allouer le tableau des drapeaux (flags) d'invalidation
-    char *lFlags = (char*) calloc(lMax, sizeof(*lFlags));
+    lFlags = (char*) calloc(lMax, sizeof(*lFlags));
     assert(lFlags != 0);
 
     //unsigned long i = 3;
     //printf("%lu \n", i/2);
 
+    // premiere passe sur tout les multiple de 2
+    for(unsigned long p=2; p < lMax; p+=2){
+        lFlags[p]++;
+    }
+
     // Appliquer la passoire d'Ératosthène
-    for (unsigned long p=2; p*p < lMax; p++) {
-        if(p%2 == 0 && p > 2){
-            continue;
-        }
+    for (unsigned long p=3; p*p < lMax; p+=2) {
         if (lFlags[p] == 0) {
             // invalider tous les multiples
-            for (unsigned long i=p; i*p < lMax; i++) {
+            for (unsigned long i=p; i*p < lMax; i+=2) {
                 lFlags[i*p]++;
             }
         }
