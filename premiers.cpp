@@ -54,7 +54,8 @@ void eratosthenesBlockSimple(unsigned long from, unsigned long to)
 void* eratosthenesParBlock(void* iArg)
 {
     // each slices covers ["from" ... "to"], incl. "from" and "to"
-    do{
+    while(gP <= lMax) {
+        printf("Starting thread..\n");
         unsigned long to = gP + sliceSize;
         if (to > lMax) {
             to = lMax;
@@ -64,7 +65,6 @@ void* eratosthenesParBlock(void* iArg)
         gP+=sliceSize;
         pthread_mutex_unlock(&gMutex);
     }
-    while(gP <= lMax);
 
     /*for (unsigned long from = 2; from <= lMax; from += sliceSize)
     {
