@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <assert.h>
+#include <pthread.h>
 #include "Chrono.hpp"
 
 // Programme qui trouve à l'aide de la passoire d'Ératosthène,
@@ -23,11 +24,18 @@ int main(int argc, char *argv[])
     char *lFlags = (char*) calloc(lMax, sizeof(*lFlags));
     assert(lFlags != 0);
 
+
     // Appliquer la passoire d'Ératosthène
-    for (unsigned long p=2; p < lMax; p++) {
+    // multiples de 2 d'abord
+
+ for (unsigned long i=2; i*2 < lMax; i++) {
+                lFlags[i*2]++;
+            }
+
+    for (unsigned long p=3; p < lMax; p++) {
         if (lFlags[p] == 0) {
             // invalider tous les multiples
-            for (unsigned long i=2; i*p < lMax; i++) {
+            for (unsigned long i=p; i*p < lMax; i=i+2) {
                 lFlags[i*p]++;
             }
         }
