@@ -14,7 +14,7 @@ pthread_mutex_t gMutexOdd = PTHREAD_MUTEX_INITIALIZER;
 
 // even variables
 unsigned long gEven = 4;
-unsigned long evenSlice = 10000;
+unsigned long evenSlice = 100000;
 pthread_mutex_t gMutexEven = PTHREAD_MUTEX_INITIALIZER;
 
 
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 
     // Afficher les nombres trouvés à la console
     for (unsigned long p=2; p<lMax; p++) {
-        //if (lFlags[p] == 0) printf("%ld ", p);
+        // if (lFlags[p] == 0) printf("%ld ", p);
     }
     printf("\n");
 
