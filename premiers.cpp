@@ -2,10 +2,32 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <math.h>
+#include <pthread.h>
 #include "Chrono.hpp"
 
 unsigned long lMax = 1000;
 char *lFlags;
+unsigned long gOdd = 3;
+
+pthread_mutex_t gMutexOdd = PTHREAD_MUTEX_INITIALIZER;
+
+void* eratosthenes(void* iArg)
+{
+    while(gOdd*gOdd <= lMax) {
+        pthread_mutex_lock(&gMutexOdd);
+        unsigned long current = gOdd;
+        gOdd+=2;
+        pthread_mutex_unlock(&gMutexOdd);
+        if (lFlags[current] == 0) {
+            // invalider tous les multiples
+            for (unsigned long i=current; i*current < lMax; i+=2) {
+                lFlags[i*current]++;
+            }
+        }
+    }
+
+    pthread_exit(NULL);
+}
 
 // Programme qui trouve à l'aide de la passoire d'Ératosthène,
 // tous les nombres premiers inférieurs à un certain seuil 
@@ -19,6 +41,12 @@ int main(int argc, char *argv[])
         lMax = atol(argv[1]);
     }
 
+    // Déterminer le nombre de threads
+    int lThreads = 1; // par défault = 1
+    if (argc >= 3) {
+        lThreads = atoi(argv[2]);
+    }
+
     // Démarrer le chronomètre
     Chrono lChrono(true);
  
@@ -30,18 +58,19 @@ int main(int argc, char *argv[])
     //printf("%lu \n", i/2);
 
     // premiere passe sur tout les multiple de 2
-    for(unsigned long p=2; p < lMax; p+=2){
+    for(unsigned long p=4; p < lMax; p+=2){
         lFlags[p]++;
     }
 
     // Appliquer la passoire d'Ératosthène
-    for (unsigned long p=3; p*p < lMax; p+=2) {
-        if (lFlags[p] == 0) {
-            // invalider tous les multiples
-            for (unsigned long i=p; i*p < lMax; i+=2) {
-                lFlags[i*p]++;
-            }
-        }
+    pthread_t lIds[lThreads];
+    for(int i=1; i<=lThreads; ++i) {
+        pthread_create(&lIds[i-1], NULL, eratosthenes, NULL);
+    }
+
+    // wait for thread completion
+    for(int i=1; i<=lThreads; ++i) {
+        pthread_join(lIds[i-1], NULL);
     }
 
     // Arrêter le chronomètre
