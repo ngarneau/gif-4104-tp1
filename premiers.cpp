@@ -7,12 +7,35 @@
 
 unsigned long lMax = 1000;
 char *lFlags;
-unsigned long gOdd = 3;
 
+// odd variables
+unsigned long gOdd = 3;
 pthread_mutex_t gMutexOdd = PTHREAD_MUTEX_INITIALIZER;
+
+// even variables
+unsigned long gEven = 4;
+unsigned long evenSlice = 10000;
+pthread_mutex_t gMutexEven = PTHREAD_MUTEX_INITIALIZER;
+
 
 void* eratosthenes(void* iArg)
 {
+    // even numbers
+    while(gEven <= lMax) {
+        pthread_mutex_lock(&gMutexEven);
+        unsigned long from = gEven;
+        gEven+=evenSlice;
+        pthread_mutex_unlock(&gMutexEven);
+        unsigned long to = from + evenSlice;
+        if(to > lMax){
+            to = lMax;
+        }
+        for (unsigned long i=from; i < to; i+=2) {
+            lFlags[i]++;
+        }
+    }
+
+    // odd numbers
     while(gOdd*gOdd <= lMax) {
         pthread_mutex_lock(&gMutexOdd);
         unsigned long current = gOdd;
@@ -58,9 +81,9 @@ int main(int argc, char *argv[])
     //printf("%lu \n", i/2);
 
     // premiere passe sur tout les multiple de 2
-    for(unsigned long p=4; p < lMax; p+=2){
+    /*for(unsigned long p=4; p < lMax; p+=2){
         lFlags[p]++;
-    }
+    }*/
 
     // Appliquer la passoire d'Ératosthène
     pthread_t lIds[lThreads];
