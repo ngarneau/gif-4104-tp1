@@ -59,9 +59,9 @@ void* eratosthenesParBlock(void* iArg)
 
 
     while(gP <= lMax) {
-        pthread_mutex_lock(&gMutexNumBlock);
-        numBlocks++;
-        pthread_mutex_unlock(&gMutexNumBlock);
+        //pthread_mutex_lock(&gMutexNumBlock);
+        //numBlocks++;
+        //pthread_mutex_unlock(&gMutexNumBlock);
 
         unsigned long to = gP + sliceSize;
         if (to > lMax) {
