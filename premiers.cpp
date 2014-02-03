@@ -36,12 +36,12 @@ int main(int argc, char *argv[])
     // Arrêter le chronomètre
     lChrono.pause();
 
-    // Afficher les nombres trouvés à la console
+/*    // Afficher les nombres trouvés à la console
     for (unsigned long p=2; p<lMax; p++) {
         if (lFlags[p] == 0) printf("%ld ", p);
     }
     printf("\n");
-
+*/
     // Afficher le temps d'exécution dans le stderr
     fprintf(stderr, "Temps d'execution = %f sec\n", lChrono.get());
  
