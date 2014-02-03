@@ -104,7 +104,7 @@ int main(int argc, char *argv[])
 
     // Afficher les nombres trouvés à la console
     for (unsigned long p=2; p<lMax; p++) {
-        if (lFlags[p] == 0) printf("%ld ", p);
+        //if (lFlags[p] == 0) printf("%ld ", p);
     }
     printf("\n");
 
