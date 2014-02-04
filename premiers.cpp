@@ -77,14 +77,6 @@ int main(int argc, char *argv[])
     lFlags = (char*) calloc(lMax, sizeof(*lFlags));
     assert(lFlags != 0);
 
-    //unsigned long i = 3;
-    //printf("%lu \n", i/2);
-
-    // premiere passe sur tout les multiple de 2
-    /*for(unsigned long p=4; p < lMax; p+=2){
-        lFlags[p]++;
-    }*/
-
     // Appliquer la passoire d'Ératosthène
     pthread_t lIds[lThreads];
     for(int i=1; i<=lThreads; ++i) {
@@ -101,7 +93,7 @@ int main(int argc, char *argv[])
 
     // Afficher les nombres trouvés à la console
     for (unsigned long p=2; p<lMax; p++) {
-        // if (lFlags[p] == 0) printf("%ld ", p);
+        //if (lFlags[p] == 0) printf("%ld ", p);
     }
     printf("\n");
 
