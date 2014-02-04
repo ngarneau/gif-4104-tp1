@@ -14,7 +14,7 @@ pthread_mutex_t gMutexOdd = PTHREAD_MUTEX_INITIALIZER;
 
 // even variables
 unsigned long gEven = 4;
-unsigned long evenSlice = 100000;
+unsigned long evenSlice = 128*1024;
 pthread_mutex_t gMutexEven = PTHREAD_MUTEX_INITIALIZER;
 
 
