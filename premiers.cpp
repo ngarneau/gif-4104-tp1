@@ -39,21 +39,14 @@ void* eratosthenes(void* iArg)
     while(gOdd*gOdd <= lMax) {
         pthread_mutex_lock(&gMutexOdd);
         unsigned long current = gOdd;
-        gOdd+=evenSlice;
+        gOdd+=2;
         pthread_mutex_unlock(&gMutexOdd);
-        unsigned long to = current + evenSlice;
-        if(to > lMax){
-            to = lMax;
-        }
-        for(unsigned y = current; y <= to; y += 2){
-
-        if (lFlags[y] == 0) {
+        if (lFlags[current] == 0) {
             // invalider tous les multiples
-            for (unsigned long i=y; i*y < lMax; i+=2) {
-                lFlags[i*y]++;
+            for (unsigned long i=current; i*current < lMax; i+=2) {
+                lFlags[i*current]++;
             }
         }
-    }
     }
 
     pthread_exit(NULL);
