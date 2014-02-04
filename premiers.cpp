@@ -14,23 +14,18 @@ pthread_mutex_t gMutexOdd = PTHREAD_MUTEX_INITIALIZER;
 
 // even variables
 unsigned long gEven = 4;
-unsigned long evenSlice = 128*1024;
+unsigned long evenDone = 0;
 pthread_mutex_t gMutexEven = PTHREAD_MUTEX_INITIALIZER;
 
 
 void* eratosthenes(void* iArg)
 {
     // even numbers
-    while(gEven <= lMax) {
+    if(!evenDone){
         pthread_mutex_lock(&gMutexEven);
-        unsigned long from = gEven;
-        gEven+=evenSlice;
+        evenDone = 1;
         pthread_mutex_unlock(&gMutexEven);
-        unsigned long to = from + evenSlice;
-        if(to > lMax){
-            to = lMax;
-        }
-        for (unsigned long i=from; i < to; i+=2) {
+        for (unsigned long i=gEven; i < lMax; i+=2) {
             lFlags[i]++;
         }
     }
